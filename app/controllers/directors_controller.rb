@@ -7,9 +7,6 @@ class DirectorsController < ApplicationController
     @director = Director.find(params[:id])
   end
 
-  def new
-  end
-
   def create_row
     @director = Director.new
     @director.dob = params[:dob]
@@ -19,7 +16,9 @@ class DirectorsController < ApplicationController
 
     @director.save
 
-    render("show_details")
+    render('create_row')
+    # redirect_to("/create_director/" + @director.dob.to_s + "," + @director.name.to_s + "," + @director.bio.to_s + "," + @director.image_url.to_s)
+
   end
 
   def edit_form
@@ -36,12 +35,21 @@ class DirectorsController < ApplicationController
 
     @director.save
 
-    render("show_details")
+    render('update_row')
+    # The link below gives an error message - why?
+    # redirect_to("/update_director/" + @director.id.to_s)
   end
 
   def destroy
-    @director = Director.find(params[:id])
-
+    @director = Director.find_by({ :id => params[:id] })
     @director.destroy
+
+    #This function does not work - why?
+    render('destroy.html.erb')
+  end
+
+  def new_form
+
+    render ('/directors/new_form')
   end
 end

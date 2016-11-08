@@ -36,7 +36,7 @@ class ActorsController < ApplicationController
 
     @actor.save
 
-    render("show")
+    redirect_to ("/update_director/" + @actor.id.to_s)
   end
 
   def destroy
